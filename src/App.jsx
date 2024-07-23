@@ -32,10 +32,10 @@ function App() {
         <div className="text-center">
         <img className="w-80 mb-3 mx-auto" src={logo} alt="" />
           <h1 className="text-5xl bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent font-bold p-3">สุ่มอาหารตามสั่ง</h1>
-          <div className="mt-5 p-2">
+          <div className="mt-5 p-2 text-slate-700">
             <label htmlFor="select">เลือก เผ็ด/ไม่เผ็ด</label>
           </div>
-          <select className="select select-bordered w-full max-w-xs"
+          <select className="select select-bordered w-full max-w-xs text-slate-700"
            onChange={(e) => setIsSpicy(e.target.value === 'spicy')}>
             <option disabled selected>
               โปรดเลือก
@@ -51,12 +51,12 @@ function App() {
             >
               สุ่มเลย
             </button>
-            <dialog id="my_modal_1" className="modal">
+            <dialog id="my_modal_1" className="modal text-slate-700">
               <div className="modal-box">
               <h3 className="font-semibold text-xl m-3">เมนูที่ได้</h3>
               <hr />
               <i class="fa-solid fa-bowl-food text-5xl m-3"></i>
-              <p className="py-4 text-3xl">{selectedItem}</p>
+              <p className="py-4 text-3xl font-semibold text-orange-400">{selectedItem}</p>
                 <div className="modal-action">
                   <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}

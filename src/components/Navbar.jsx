@@ -4,7 +4,7 @@ import logo from '../assets/logo.png'
 
 function Navbar() {
   return (
-    <div className="navbar bg-white shadow-lg fixed top-0 p-0 font-semibold">
+    <div className="navbar bg-white shadow-md fixed top-0 p-0 font-semibold text-slate-700">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

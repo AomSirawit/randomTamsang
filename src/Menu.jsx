@@ -7,7 +7,7 @@ function Menu(){
     return(
     <>
     <Navbar/>
-      <div className="mt-24">
+      <div className="mt-24 text-slate-700">
         <div className="text-center">
         <h1 className="text-5xl bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent font-bold p-3">เมนูทั้งหมด</h1>
           <h2 className="text-3xl mt-5 underline">เผ็ด</h2>
