@@ -4,13 +4,13 @@ import logo from '../assets/logo.png'
 
 function Navbar() {
   return (
-    <div className="navbar bg-white shadow-md fixed top-0 p-0 font-semibold text-slate-700">
+    <div className="navbar glass-nav fixed top-0 z-50 px-4 md:px-8">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor">
@@ -23,21 +23,38 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-            <li><Link to="/">หน้าหลัก</Link></li>
-            <li><Link to="/menu">เมนูทั้งหมด</Link></li>
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-xl border border-primary/10">
+            <li><Link to="/" className="text-lg py-2">🏠 หน้าหลัก</Link></li>
+            <li><Link to="/menu" className="text-lg py-2">📋 เมนูทั้งหมด</Link></li>
           </ul>
         </div>
-       <img className="w-20 mx-5" src={logo} alt="" />
+        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <img className="w-12 md:w-16" src={logo} alt="Logo" />
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li><Link to="/">หน้าหลัก</Link></li>
-          <li><Link to="/menu">เมนูทั้งหมด</Link></li>
+        <ul className="menu menu-horizontal px-1 gap-2">
+          <li>
+            <Link to="/" className="text-base font-semibold hover:text-primary transition-colors">
+              หน้าหลัก
+            </Link>
+          </li>
+          <li>
+            <Link to="/menu" className="text-base font-semibold hover:text-primary transition-colors">
+              เมนูทั้งหมด
+            </Link>
+          </li>
         </ul>
       </div>
-      <div className="navbar-end mx-5">
-        <a href="https://linktr.ee/ITFeature" target="_blank" className="btn bg-orange-400 text-white">ติดต่อ</a>
+      <div className="navbar-end">
+        <a 
+          href="https://linktr.ee/ITFeature" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="btn btn-primary btn-sm md:btn-md text-white shadow-md hover:shadow-lg transition-all"
+        >
+          ติดต่อเรา
+        </a>
       </div>
     </div>
   );

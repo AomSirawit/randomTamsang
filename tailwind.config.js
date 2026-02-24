@@ -5,10 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'bounce-slow': 'bounce 3s linear infinite',
+      }
+    },
   },
   daisyui: {
-    themes: ["light", "dark", "cupcake"],
+    themes: ["cupcake", "retro", "lemonade"],
   },
   plugins: [
     require('daisyui'),

@@ -10,66 +10,102 @@ import Swal from "sweetalert2";
 function App() {
   const [selectedItem, setSelectedItem] = useState('');
   const [isSpicy, setIsSpicy]  = useState(null);
+  const [isSpinning, setIsSpinning] = useState(false);
   
   const HandleRandomSelect = () => {
-    const items = isSpicy ? Spicy : NotSpicy;
     if(isSpicy === null){
       Swal.fire({
-        title: "โปรดเลือกก่อนที่จะสุ่ม​ !!",
-        icon: "warning"
+        title: "โปรดเลือกก่อนที่จะสุ่ม !!",
+        text: "คุณชอบเผ็ดหรือไม่ชอบเผ็ด?",
+        icon: "question",
+        confirmButtonColor: '#fb923c'
       });
       return;
     }
-    const randomIndex = Math.floor(Math.random() * items.length);
-    setSelectedItem(items[randomIndex]);
-    document.getElementById('my_modal_1').showModal();
+
+    setIsSpinning(true);
+    
+    // Simulate a "spinning" effect
+    setTimeout(() => {
+      const items = isSpicy ? Spicy : NotSpicy;
+      const randomIndex = Math.floor(Math.random() * items.length);
+      setSelectedItem(items[randomIndex]);
+      setIsSpinning(false);
+      document.getElementById('my_modal_1').showModal();
+    }, 1500);
   }
   
   return (
-    <>
-    <Navbar/>
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-        <img className="w-80 mb-3 mx-auto" src={logo} alt="" />
-          <h1 className="text-5xl bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent font-bold p-3">สุ่มอาหารตามสั่ง</h1>
-          <div className="mt-5 p-2 text-slate-700">
-            <label htmlFor="select">เลือก เผ็ด/ไม่เผ็ด</label>
-          </div>
-          <select className="select select-bordered w-full max-w-xs text-slate-700"
-           onChange={(e) => setIsSpicy(e.target.value === 'spicy')}>
-            <option disabled selected>
-              โปรดเลือก
-            </option>
-            <option value="spicy">เผ็ด</option>
-            <option value="not-spicy">ไม่เผ็ด</option>
-          </select>
-          <div className="mt-6">
-            <button
-              className="btn min-w-xs w-full"
-              style={{ backgroundColor: '#fcb040', color: '#fff' }} 
-              onClick={HandleRandomSelect}
-            >
-              สุ่มเลย
-            </button>
-            <dialog id="my_modal_1" className="modal text-slate-700">
-              <div className="modal-box">
-              <h3 className="font-semibold text-xl m-3">เมนูที่ได้</h3>
-              <hr />
-              <i class="fa-solid fa-bowl-food text-5xl m-3"></i>
-              <p className="py-4 text-3xl font-semibold text-orange-400">{selectedItem}</p>
-                <div className="modal-action">
-                  <form method="dialog">
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className="btn btn-error text-white">Close</button>
+    <div data-theme="cupcake" className="min-h-screen flex flex-col">
+      <Navbar/>
+      <main className="flex-grow flex items-center justify-center p-4 pt-24">
+        <div className="card w-full max-w-lg bg-base-100 shadow-xl border border-primary/10">
+          <figure className="px-10 pt-5">
+            <img src={logo} alt="Logo" className="rounded-xl w-32 animate-bounce-slow" />
+          </figure>
+          <div className="card-body items-center text-center p-6">
+            <h1 className="card-title text-3xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent mb-1">
+              สุ่มอาหารตามสั่ง
+            </h1>
+            <p className="text-base-content/70 mb-4 text-sm">วันนี้กินอะไรดี? ให้เราช่วยคุณเลือกสิ!</p>
+            
+            <div className="form-control w-full max-w-xs mb-6">
+              <label className="label py-1">
+                <span className="label-text font-medium text-base">สไตล์ที่ต้องการ</span>
+              </label>
+              <select 
+                className="select select-bordered select-primary w-full"
+                onChange={(e) => setIsSpicy(e.target.value === 'spicy')}
+                defaultValue="default"
+              >
+                <option value="default" disabled>
+                  -- เลือกประเภทอาหาร --
+                </option>
+                <option value="spicy">🌶️ เมนูเผ็ดร้อน</option>
+                <option value="not-spicy">🥦 เมนูไม่เผ็ด</option>
+              </select>
+            </div>
+
+            <div className="card-actions w-full max-w-xs">
+              <button
+                className={`btn btn-primary w-full text-white shadow-lg transition-all duration-300 ${isSpinning ? '' : 'hover:scale-105 active:scale-95'}`}
+                style={{ background: 'linear-gradient(45deg, #fb923c, #facc15)', border: 'none' }}
+                onClick={HandleRandomSelect}
+                disabled={isSpinning}
+              >
+                {isSpinning ? (
+                  <>
+                    <span className="loading loading-spinner loading-sm"></span>
+                    กำลังสุ่ม...
+                  </>
+                ) : 'สุ่มเลย!'}
+              </button>
+            </div>
+
+            {/* Modal */}
+            <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
+              <div className="modal-box bg-base-100 border-4 border-primary">
+                <h3 className="font-bold text-2xl mb-4">✨ เมนูที่ได้คือ... ✨</h3>
+                <div className="py-8 flex flex-col items-center justify-center bg-primary/5 rounded-2xl mb-6">
+                  <div className="text-6xl mb-4">🍱</div>
+                  <p className="text-4xl font-bold text-primary animate-pulse">{selectedItem}</p>
+                </div>
+                <div className="modal-action flex justify-center">
+                  <form method="dialog" className="w-full">
+                    <button className="btn btn-primary text-white w-full text-lg">เย้! เอาเมนูนี้แหละ</button>
                   </form>
                 </div>
+                <p className="text-center mt-4 text-sm opacity-50">หรือจะสุ่มใหม่อีกรอบก็ได้นะ</p>
               </div>
+              <form method="dialog" className="modal-backdrop">
+                <button>close</button>
+              </form>
             </dialog>
           </div>
         </div>
-      </div>
+      </main>
       <Footer/>
-    </>
+    </div>
   );
 }
 
